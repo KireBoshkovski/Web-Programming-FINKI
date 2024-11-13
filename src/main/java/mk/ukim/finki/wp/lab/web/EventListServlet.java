@@ -20,7 +20,7 @@ import java.io.IOException;
 public class EventListServlet extends HttpServlet {
 
     private final SpringTemplateEngine springTemplateEngine;
-    private EventService eventService;
+    private final EventService eventService;
 
     public EventListServlet(EventService categoryService, SpringTemplateEngine springTemplateEngine) {
         this.eventService = categoryService;
@@ -57,11 +57,13 @@ public class EventListServlet extends HttpServlet {
         String action = request.getParameter("action");
 
         if (action.equals("Filter")) {
+
             String minRatingStr = request.getParameter("minRating");
             Double minRating = minRatingStr != null && !minRatingStr.isEmpty() ? Double.parseDouble(minRatingStr) : 0.0;
 
             String filterText = request.getParameter("filterText");
             filterText = (filterText != null && !filterText.isEmpty()) ? filterText : " ";
+
             session.setAttribute("filteredEvents", this.eventService.searchEvents(filterText, minRating));
             response.sendRedirect("/list");
 
@@ -80,6 +82,7 @@ public class EventListServlet extends HttpServlet {
             session.setAttribute("clientIpAddress", address);
             session.setAttribute("eventName", eventName);
             session.setAttribute("numTickets", numTickets);
+
             response.sendRedirect("/eventBooking");
         }
     }

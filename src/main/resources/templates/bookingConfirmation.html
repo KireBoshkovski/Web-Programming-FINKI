@@ -31,25 +31,38 @@
         </tr>
         <tr>
             <td><b>Attendee Name </b></td>
-            <td th:text="${attendeeName}">Petko Petkov</td>
+            <td th:text="${booking.getAttendeeName()}">Petko Petkov</td>
         </tr>
         <tr>
             <td><b>Client IP Address</b></td>
-            <td th:text="${clientIpAddress}">127.0.0.1</td>
+            <td th:text="${booking.getAttendeeAddress()}">127.0.0.1</td>
         </tr>
         <tr>
             <td><b>Booking for Event</b></td>
-            <td th:text="${eventName}">Oppenheimer</td>
+            <td th:text="${booking.getEventName()}">Oppenheimer</td>
         </tr>
         <tr>
             <td><b>Number of tickets</b></td>
-            <td th:text="${numTickets}">2</td>
+            <td th:text="${booking.getNumberOfTickets()}">2</td>
         </tr>
     </table>
 </section>
 <br>
 <form th:method="POST" th:action="@{/eventBooking}">
     <input type="submit" name="action" value="Confirm">
+    <div>
+        <span th:text="${session.attendeeName}"></span>'s bookings:
+        <ul>
+            <li th:each="b : ${bookings}">
+                <label>
+                    Event: <span th:text="${b.getEventName()}"></span>
+                    Number of tickets: <span th:text="${b.getNumberOfTickets()}"></span>
+                </label>
+            </li>
+        </ul>
+    </div>
 </form>
+<a href="/events">Back to events</a>
+
 </body>
 </html>

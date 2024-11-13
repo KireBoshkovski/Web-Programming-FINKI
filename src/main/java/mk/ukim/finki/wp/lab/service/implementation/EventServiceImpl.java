@@ -6,6 +6,7 @@ import mk.ukim.finki.wp.lab.service.EventService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,12 +20,33 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<Event> listAll() {
-        return eventRepository.findAll();
+        return this.eventRepository.findAll();
     }
 
     @Override
     public List<Event> searchEvents(String text, Double rating) {
-        return eventRepository.search(text, rating);
+        return this.eventRepository.search(text, rating);
     }
+
+    @Override
+    public Boolean removeById(Long id) {
+        return this.eventRepository.removeById(id);
+    }
+
+    @Override
+    public Boolean saveEvent(String name, String description, Double popularityScore, Long locationId) {
+        return this.eventRepository.saveEvent(name, description, popularityScore, locationId);
+    }
+
+    @Override
+    public Optional<Event> findById(Long id) {
+        return this.eventRepository.findById(id);
+    }
+
+    @Override
+    public Event editEvent(Long id, String name, String description, Double popularityScore, Long locationId) {
+        return this.eventRepository.editEvent(id, name, description, popularityScore, locationId);
+    }
+
 
 }
