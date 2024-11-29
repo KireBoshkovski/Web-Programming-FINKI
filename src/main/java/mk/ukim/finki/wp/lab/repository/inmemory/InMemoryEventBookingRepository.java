@@ -1,4 +1,4 @@
-package mk.ukim.finki.wp.lab.repository;
+package mk.ukim.finki.wp.lab.repository.inmemory;
 
 import mk.ukim.finki.wp.lab.bootstrap.DataHolder;
 import mk.ukim.finki.wp.lab.model.EventBooking;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
-public class EventBookingRepository {
+public class InMemoryEventBookingRepository {
 
     public void addBooking(EventBooking eventBooking) {
         DataHolder.bookings.add(eventBooking);

@@ -1,16 +1,15 @@
-package mk.ukim.finki.wp.lab.repository;
+package mk.ukim.finki.wp.lab.repository.inmemory;
 
 import mk.ukim.finki.wp.lab.bootstrap.DataHolder;
 import mk.ukim.finki.wp.lab.model.Event;
 import org.springframework.stereotype.Repository;
 
-import javax.xml.crypto.Data;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
-public class EventRepository {
+public class InMemoryEventRepository {
 
     public List<Event> findAll() {
         return DataHolder.events;
@@ -28,7 +27,7 @@ public class EventRepository {
     }
 
     public Boolean saveEvent(String name, String description, Double popularityScore, Long locationId) {
-        return DataHolder.events.add(new Event(name, description, popularityScore, locationId));
+        return DataHolder.events.add(new Event(name, description, popularityScore));
     }
 
     public Optional<Event> findById(Long id) {

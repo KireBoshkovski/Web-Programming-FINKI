@@ -11,6 +11,9 @@
         .text-danger {
             color: red;
         }
+        .b{
+            display: inline;
+        }
     </style>
 </head>
 <body>
@@ -59,15 +62,15 @@
                 </label>
                 <br>
 
-                <form th:action="@{'/events/edit/{id}' (id=${event.getId()})}" th:method="GET">
+                <form class="b" th:action="@{'/events/edit/{id}' (id=${event.getId()})}" th:method="GET">
                     <button type="submit">Edit</button>
                 </form>
 
-                <form th:action="@{'/events/delete/{id}' (id=${event.getId()})}" th:method="POST">
+                <form class="b" th:action="@{'/events/delete/{id}' (id=${event.getId()})}" th:method="POST">
                     <button type="submit">Delete</button>
                 </form>
 
-                <form th:action="@{'/events/details/{id}' (id=${event.getId()})}" th:method="GET">
+                <form class="b" th:action="@{'/events/details/{id}' (id=${event.getId()})}" th:method="GET">
                     <button type="submit">Details</button>
                 </form>
             </li>

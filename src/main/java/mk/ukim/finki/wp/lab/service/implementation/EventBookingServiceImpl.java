@@ -1,7 +1,7 @@
 package mk.ukim.finki.wp.lab.service.implementation;
 
 import mk.ukim.finki.wp.lab.model.EventBooking;
-import mk.ukim.finki.wp.lab.repository.EventBookingRepository;
+import mk.ukim.finki.wp.lab.repository.inmemory.InMemoryEventBookingRepository;
 import mk.ukim.finki.wp.lab.service.EventBookingService;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 @Service
 public class EventBookingServiceImpl implements EventBookingService {
 
-    EventBookingRepository eventBookingRepository;
+    InMemoryEventBookingRepository eventBookingRepository;
 
-    public EventBookingServiceImpl(EventBookingRepository eventBookingRepository) {
+    public EventBookingServiceImpl(InMemoryEventBookingRepository eventBookingRepository) {
         this.eventBookingRepository = eventBookingRepository;
     }
 
