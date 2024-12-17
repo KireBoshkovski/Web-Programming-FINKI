@@ -62,7 +62,7 @@ public class EventListServlet extends HttpServlet {
             String filterText = request.getParameter("filterText");
             filterText = (filterText != null && !filterText.isEmpty()) ? filterText : " ";
 
-            session.setAttribute("filteredEvents", this.eventService.searchEvents(filterText, minRating));
+            session.setAttribute("filteredEvents", this.eventService.searchEvents(filterText, filterText, minRating));
             response.sendRedirect("/list");
 
         } else if (action.equals("Reset")) {

@@ -7,11 +7,17 @@ import mk.ukim.finki.wp.lab.model.Location;
 import mk.ukim.finki.wp.lab.repository.jpa.EventRepository;
 import mk.ukim.finki.wp.lab.repository.jpa.LocationRepository;
 import mk.ukim.finki.wp.lab.service.EventService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static mk.ukim.finki.wp.lab.service.specification.FieldFilterSpecification.filterContainsText;
+import static mk.ukim.finki.wp.lab.service.specification.FieldFilterSpecification.greaterThan;
 
 @Service
 @AllArgsConstructor
@@ -26,8 +32,15 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<Event> searchEvents(String text, Double rating) {
-        return this.eventRepository.findAllByNameLikeOrDescriptionLikeAndPopularityScoreGreaterThan(text, text, rating);
+    public List<Event> searchEvents(String name, String description , Double rating) {
+        Specification<Event> specification = Specification
+                .where(filterContainsText(Event.class, "name", name))
+                .and(filterContainsText(Event.class, "description", description))
+                .and(greaterThan(Event.class, "rating", rating));
+
+        return this.eventRepository
+                .findAll(specification, PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "name")))
+                .getContent();
     }
 
     @Override

@@ -6,12 +6,9 @@ import mk.ukim.finki.wp.lab.model.Event;
 import mk.ukim.finki.wp.lab.model.Location;
 import mk.ukim.finki.wp.lab.repository.jpa.EventRepository;
 import mk.ukim.finki.wp.lab.repository.jpa.LocationRepository;
-import mk.ukim.finki.wp.lab.service.EventService;
-import mk.ukim.finki.wp.lab.service.LocationService;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Component

@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="en" xmlns:sec="">
 <head>
     <meta charset="utf-8">
     <title>Event Booking page - Welcome and choose an Event</title>
@@ -11,7 +11,8 @@
         .text-danger {
             color: red;
         }
-        .b{
+
+        .b {
             display: inline;
         }
     </style>
@@ -39,9 +40,11 @@
     <br>
     <br>
 
-    <form th:action="@{'/events/add'}" th:method="GET">
-        <button type="submit">ADD NEW EVENT</button>
-    </form>
+    <th:block sec:authorize="hasRole('ADMIN')">
+        <form th:action="@{'/events/add'}" th:method="GET">
+            <button type="submit">ADD NEW EVENT</button>
+        </form>
+    </th:block>
 
     <form th:action="@{'/eventBooking'}" th:method="GET">
         <h2>Enter your full name:</h2>
@@ -61,18 +64,21 @@
                     Location: <span th:text="${event.getLocation()}"></span>
                 </label>
                 <br>
+                <th:block sec:authorize="hasRole('ADMIN')">
 
-                <form class="b" th:action="@{'/events/edit/{id}' (id=${event.getId()})}" th:method="GET">
-                    <button type="submit">Edit</button>
-                </form>
+                    <form class="b" th:action="@{'/events/edit/{id}' (id=${event.getId()})}" th:method="GET">
+                        <button type="submit">Edit</button>
+                    </form>
 
-                <form class="b" th:action="@{'/events/delete/{id}' (id=${event.getId()})}" th:method="POST">
-                    <button type="submit">Delete</button>
-                </form>
+                    <form class="b" th:action="@{'/events/delete/{id}' (id=${event.getId()})}" th:method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
 
-                <form class="b" th:action="@{'/events/details/{id}' (id=${event.getId()})}" th:method="GET">
-                    <button type="submit">Details</button>
-                </form>
+                    <form class="b" th:action="@{'/events/details/{id}' (id=${event.getId()})}" th:method="GET">
+                        <button type="submit">Details</button>
+                    </form>
+
+                </th:block>
             </li>
         </ul>
     </form>

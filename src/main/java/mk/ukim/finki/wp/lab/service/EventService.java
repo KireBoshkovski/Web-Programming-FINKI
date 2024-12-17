@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface EventService {
     List<Event> listAll();
-    List<Event> searchEvents(String text, Double rating);
+    List<Event> searchEvents(String name, String description, Double rating);
     void removeById(Long id);
     Event saveEvent(String name, String description, Double popularityScore, Long locationId);
     Optional<Event> findById(Long id);

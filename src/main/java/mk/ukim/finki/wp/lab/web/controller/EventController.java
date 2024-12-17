@@ -46,8 +46,7 @@ public class EventController {
     public String saveEvent(@RequestParam String name,
                             @RequestParam String description,
                             @RequestParam Double popularityScore,
-                            @RequestParam Long location,
-                            Model model) {
+                            @RequestParam Long location) {
 
         this.eventService.saveEvent(name, description, popularityScore, location);
 
@@ -71,8 +70,7 @@ public class EventController {
                             @RequestParam String name,
                             @RequestParam String description,
                             @RequestParam Double popularityScore,
-                            @RequestParam Long location,
-                            Model model) {
+                            @RequestParam Long location) {
 
         if (this.eventService.findById(id).isPresent()) {
             try {
@@ -80,7 +78,6 @@ public class EventController {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-
             return "redirect:/events";
         }
         return "redirect:/events?error=ProductNotFound";
@@ -89,7 +86,7 @@ public class EventController {
     @PostMapping("/delete/{id}")
     public String deleteProduct(@PathVariable Long id) {
         this.eventService.removeById(id);
-            return "redirect:/events";
+        return "redirect:/events";
     }
 
     @GetMapping("/details/{id}")
@@ -101,7 +98,4 @@ public class EventController {
 
         return "details-event";
     }
-
-
-    /// TODO Fix filter add filtering by location
 }

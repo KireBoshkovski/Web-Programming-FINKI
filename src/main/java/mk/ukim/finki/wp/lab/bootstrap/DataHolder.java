@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+//@Component
 public class DataHolder {
     public static List<Event> events = new ArrayList<>(10);
     public static List<EventBooking> bookings = new ArrayList<>();
