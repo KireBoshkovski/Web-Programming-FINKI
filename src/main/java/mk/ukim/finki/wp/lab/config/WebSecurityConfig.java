@@ -27,7 +27,7 @@ public class WebSecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/events", "/eventBooking").authenticated()
+                        .requestMatchers("/", "/events", "/events/filter","/eventBooking").authenticated()
                         .anyRequest().hasRole("ADMIN")
                 )
                 .formLogin(form -> form

@@ -1,5 +1,6 @@
 package mk.ukim.finki.wp.lab.web.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import mk.ukim.finki.wp.lab.model.Event;
 import mk.ukim.finki.wp.lab.service.EventBookingService;
 import mk.ukim.finki.wp.lab.service.EventService;
@@ -28,6 +29,7 @@ public class EventController {
             model.addAttribute("hasError", true);
             model.addAttribute("error", error);
         }
+        model.addAttribute("locations", this.locationService.findAll());
         model.addAttribute("events", this.eventService.listAll());
         return "listEvents";
     }
@@ -97,5 +99,18 @@ public class EventController {
         model.addAttribute("bookings", this.eventBookingService.search(event.getName()));
 
         return "details-event";
+    }
+
+    @PostMapping("/filter")
+    public String filterEvents(@RequestParam String name, String description, Double rating, Long location, HttpServletRequest request, Model model) {
+        String action = request.getParameter("action");
+        if (action.equals("Filter")) {
+            model.addAttribute("events", this.eventService.searchEvents(name, description, rating, location));
+            model.addAttribute("locations", this.locationService.findAll());
+        } else { // action.equals("Reset")
+            return "redirect:/events";
+
+        }
+        return "listEvents";
     }
 }

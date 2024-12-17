@@ -16,8 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static mk.ukim.finki.wp.lab.service.specification.FieldFilterSpecification.filterContainsText;
-import static mk.ukim.finki.wp.lab.service.specification.FieldFilterSpecification.greaterThan;
+import static mk.ukim.finki.wp.lab.service.specification.FieldFilterSpecification.*;
 
 @Service
 @AllArgsConstructor
@@ -32,11 +31,12 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<Event> searchEvents(String name, String description , Double rating) {
+    public List<Event> searchEvents(String name, String description, Double rating, Long locationId) {
         Specification<Event> specification = Specification
                 .where(filterContainsText(Event.class, "name", name))
                 .and(filterContainsText(Event.class, "description", description))
-                .and(greaterThan(Event.class, "rating", rating));
+                .and(greaterThan(Event.class, "popularityScore", rating))
+                .and(filterEqualsT(Event.class, "location.id", locationId));
 
         return this.eventRepository
                 .findAll(specification, PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "name")))
